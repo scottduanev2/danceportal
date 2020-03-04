@@ -1,12 +1,18 @@
-import React from "react";
+import React from 'react';
+import { Provider } from 'react-redux';
 import Header from './Header';
+import PortalWrapper from './PortalWrapper';
+import configureStore from '../configureStore';
+const store = configureStore();
 
 class App extends React.Component {
+
   render () {
     return (
-      <div>Hi there test it out
+      <Provider store={ store }>
         <Header />
-      </div>
+        <PortalWrapper />
+      </Provider>
     );
   }
 }

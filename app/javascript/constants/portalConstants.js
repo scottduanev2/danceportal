@@ -1,0 +1,8 @@
+
+const PortalConstants = {
+  FETCH_STUDIOS: 'FETCH_STUDIOS',
+  FETCHING_STUDIOS: 'FETCHING_STUDIOS',
+  STUDIOS_RECEIVED: 'STUDIOS_RECEIVED'
+}
+
+export default PortalConstants;
