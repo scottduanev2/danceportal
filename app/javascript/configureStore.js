@@ -3,25 +3,34 @@ import thunk from 'redux-thunk';
 import PortalConstants from './constants/portalConstants';
 
 const initialState = {
-  studios: [],
+  studios: {},
   fetchingStudios: false,
+  selectedStudios: [],
   selectedDays: [0, 1, 2, 3, 4, 5, 6],
   studioTabExpanded: false,
   classSessions: []
 }
 
 function rootReducer(state, action) {
-  let newState;
   switch (action.type) {
     case PortalConstants.FETCHING_STUDIOS:
-      newState = state;
-      newState.fetchingStudios = true;
-      return newState;
+      return Object.assign({}, state, {
+        fetchingStudios: true
+      });
     case PortalConstants.STUDIOS_RECEIVED:
-      newState = state;
-      newState.fetchingStudios = false;
-      newState.studios = action.payload.studios;
-      return newState;
+      return Object.assign({}, state, {
+        fetchingStudios: false,
+        selectedStudios: Object.keys(action.payload.studios),
+        studios: action.payload.studios
+      });
+    case PortalConstants.TOGGLE_STUDIOS:
+      return Object.assign({}, state, {
+        selectedStudios: action.studioIds
+      });
+    case PortalConstants.TOGGLE_DAYS:
+      return Object.assign({}, state, {
+        selectedDays: action.days 
+      })
     default:
       return state;
   }

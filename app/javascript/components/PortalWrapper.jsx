@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchStudios } from '../actions/portalActions';
+import { fetchStudios, toggleStudioSelection, toggleDaySelection } from '../actions/portalActions';
 import StudioSelector from './StudioSelector';
 import DaySelector from './DaySelector';
 import ClassSessionList from './ClassSessionList';
@@ -11,11 +11,18 @@ class PortalWrapper extends React.Component {
   }
 
   render () {
-    const { studios, selectedDays, classSessions } = this.props;
+    const { studios, selectedDays, selectedStudios, classSessions } = this.props;
     return (
       <div>
-        <StudioSelector studios={studios} />
-        <DaySelector selectedDays={selectedDays} />
+        <StudioSelector
+          studios={studios}
+          selectedStudios={selectedStudios}
+          toggleStudioSelection={this.props.toggleStudioSelection}
+        />
+        <DaySelector
+          selectedDays={selectedDays}
+          toggleDaySelection={this.props.toggleDaySelection} 
+        />
         <ClassSessionList classSessions={classSessions} />
       </div>
     );
@@ -26,6 +33,10 @@ const mapStateToProps = state => {
   return state;
 };
 
-const mapDispatchToProps = { fetchStudios };
+const mapDispatchToProps = {
+  fetchStudios,
+  toggleStudioSelection,
+  toggleDaySelection
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PortalWrapper);
